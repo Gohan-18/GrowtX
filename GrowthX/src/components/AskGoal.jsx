@@ -1,8 +1,12 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import CheckIcon from '@mui/icons-material/Check';
+import { AppContext } from "../App";
 
-const AskName = () => {
+const AskGoal = () => {
+
+    const {activeStep, setActiveStep} = useContext(AppContext);
+
   return (
     <>
       <Box
@@ -28,15 +32,15 @@ const AskName = () => {
         }, minWidth: 'max-content', py: {
             xs: '6px',
             md: '8px'
-        }}} >1 ➜</Typography>
+        }}} >{activeStep} ➜</Typography>
         <Box sx={{display: 'flex', alignContent: 'center', height: '100%', width: '100%', alignItems: 'start', justifyContent: 'center', flexDirection: 'column' }} >
-            <Typography gutterBottom sx={{ color: "#fff", fontSize: { xs: "20px", md: "24px" } }}>What's your first name? *</Typography>
+            <Typography gutterBottom sx={{ color: "#fff", fontSize: { xs: "20px", md: "24px" } }}>What's your professional goal for the next 12 months? *</Typography>
             <TextField required variant="standard" fullWidth placeholder="Type your answer here..." sx={{py: '10px', fontSize: '40px'}} />
-            <Button endIcon={<CheckIcon />} variant="contained" sx={{color: '#fff', backgroundColor: '#0077ff', mt: '5px'}} >Ok</Button>
+            <Button onClick={() => setActiveStep(activeStep + 1)} endIcon={<CheckIcon />} variant="contained" sx={{color: '#fff', backgroundColor: '#0077ff', mt: '5px'}} >Ok</Button>
         </Box>
       </Box>
     </>
   );
 };
 
-export default AskName;
+export default AskGoal;

@@ -31,7 +31,7 @@ const LandingPage = () => {
         <Typography
           gutterBottom
           sx={{
-            color: "rgba(255, 255, 255, 0.7)",
+            color: "#ffffffb3",
             fontSize: { xs: "16px", md: "20px" },
           }}
         >
