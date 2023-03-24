@@ -79,19 +79,19 @@ const AskMail = () => {
             submissions. ]
           </Typography>
           <TextField
-            type='email'
+            type="email"
             required
             variant="standard"
             fullWidth
             placeholder="name@example.com"
             sx={{
-                py: "10px", 
-                fontSize: "40px", 
-                "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
-                    fontSize: "30px",
-                    color: '#f4f4f4',
-                    pb: '5px'
-                } 
+              py: "10px",
+              fontSize: "40px",
+              "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
+                fontSize: "30px",
+                color: "#f4f4f4",
+                pb: "5px",
+              },
             }}
           />
           <Button

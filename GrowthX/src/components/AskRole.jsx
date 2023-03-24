@@ -65,9 +65,15 @@ const AskRole = () => {
           </Typography>
           <Typography
             gutterBottom
-            sx={{ color: "#ffffffb3", fontSize: { xs: "16px", md: "20px" }, pt: '20px', fontStyle: 'italic'}}
+            sx={{
+              color: "#ffffffb3",
+              fontSize: { xs: "16px", md: "20px" },
+              pt: "20px",
+              fontStyle: "italic",
+            }}
           >
-            [ 🔴DEVELOPER NOTICE: Options in the questions ahead depend on this question's response/s. ]
+            [ 🔴DEVELOPER NOTICE: Options in the questions ahead depend on this
+            question's response/s. ]
           </Typography>
           <TextField
             required

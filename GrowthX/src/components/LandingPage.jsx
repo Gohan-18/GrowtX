@@ -3,13 +3,12 @@ import { Typography, Box, Container, Button } from "@mui/material";
 import { AppContext } from "../App";
 
 const LandingPage = () => {
-
-    const {activeStep, setActiveStep} = useContext(AppContext);
+  const { activeStep, setActiveStep } = useContext(AppContext);
 
   return (
     <>
       <Box
-      className='animate__animated animate__slideInUp'
+        className="animate__animated animate__slideInUp"
         sx={{
           height: "100vh",
           width: "100%",
@@ -55,7 +54,7 @@ const LandingPage = () => {
           </span>
         </Typography>
         <Button
-            onClick={() => setActiveStep(activeStep+1)}
+          onClick={() => setActiveStep(activeStep + 1)}
           variant="contained"
           sx={{
             backgroundColor: "#0077ff",

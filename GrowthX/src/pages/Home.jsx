@@ -9,34 +9,49 @@ import AskMail from "../components/AskMail";
 import AskPhoneNo from "../components/AskPhoneNo";
 import AskRole from "../components/AskRole";
 import LandingPage from "../components/LandingPage";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
-function getCurrentStep (activeStep) {
-    switch(activeStep) {
-        case 0 : return <LandingPage/>
-        case 1 : return <AskName/>
-        case 2 : return <AskLastName/>
-        case 3 : return <AskIndustry/>
-        case 4 : return <AskRole/>
-        case 5 : return <AskGoal/>
-        case 6 : return <AskMail/>
-        case 7 : return <AskPhoneNo/>
-    }
+function getCurrentStep(activeStep) {
+  switch (activeStep) {
+    case 0:
+      return <LandingPage />;
+    case 1:
+      return <AskName />;
+    case 2:
+      return <AskLastName />;
+    case 3:
+      return <AskIndustry />;
+    case 4:
+      return <AskRole />;
+    case 5:
+      return <AskGoal />;
+    case 6:
+      return <AskMail />;
+    case 7:
+      return <AskPhoneNo />;
+  }
 }
 
-function handleScroll() {
-
-}
+function handleScroll() {}
 
 const Home = () => {
-
-    const {activeStep, setActiveStep} = useContext(AppContext);
+  const { activeStep, setActiveStep } = useContext(AppContext);
 
   return (
-    <Container maxWidth="md" >
-        <IconButton className="animate__animated animate__fadeIn" onClick={() => setActiveStep(prev => prev-1)} sx={{position:'fixed', top: '80px', right: '20px', zIndex: 50, display: activeStep === 0 ? 'none': 'flex'}} >
-            <ArrowCircleUpIcon/>
-        </IconButton>
+    <Container maxWidth="md">
+      <IconButton
+        className="animate__animated animate__fadeIn"
+        onClick={() => setActiveStep((prev) => prev - 1)}
+        sx={{
+          position: "fixed",
+          top: "80px",
+          right: "20px",
+          zIndex: 50,
+          display: activeStep === 0 ? "none" : "flex",
+        }}
+      >
+        <ArrowCircleUpIcon />
+      </IconButton>
       <Box
         onScroll={handleScroll}
         sx={{

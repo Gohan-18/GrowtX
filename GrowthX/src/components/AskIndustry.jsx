@@ -1,4 +1,13 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useContext, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
@@ -7,21 +16,18 @@ import { industryList } from "../utils/constants";
 const AskIndustry = () => {
   const { activeStep, setActiveStep } = useContext(AppContext);
 
-  const [industry, setIndustry] = useState('')
+  const [industry, setIndustry] = useState("");
 
-  function handleChange (e) {
-    setIndustry(e.target.value)
+  function handleChange(e) {
+    setIndustry(e.target.value);
   }
-
-
-  
 
   return (
     <>
       <Box
         sx={{
           //   height: "100vh",
-        //   height: '100%',
+          //   height: '100%',
           width: "100%",
           display: "flex",
           alignItems: "start",
@@ -34,7 +40,7 @@ const AskIndustry = () => {
             xs: "10px",
             sm: "50px",
           },
-        //   overflow: 'scroll'
+          //   overflow: 'scroll'
         }}
       >
         <Typography
@@ -76,20 +82,22 @@ const AskIndustry = () => {
             We will personalize your learning experience accordingly
           </Typography>
 
-          <FormControl fullWidth sx={{my: '20px'}} >
-          <InputLabel id="industryList">Type or select an option</InputLabel>
-          <Select
-            labelId="industryList"
-            id="industryList"
-            value={industry}
-            label="Type or select an option"
-            onChange={handleChange}
-            fullWidth
-          >
-            {industryList.map((item) => (
-                <MenuItem value={item} key={item}>{item}</MenuItem>
-            ))}
-          </Select>
+          <FormControl fullWidth sx={{ my: "20px" }}>
+            <InputLabel id="industryList">Type or select an option</InputLabel>
+            <Select
+              labelId="industryList"
+              id="industryList"
+              value={industry}
+              label="Type or select an option"
+              onChange={handleChange}
+              fullWidth
+            >
+              {industryList.map((item) => (
+                <MenuItem value={item} key={item}>
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
           </FormControl>
 
           <Button

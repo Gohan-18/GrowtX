@@ -1,4 +1,13 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
@@ -64,34 +73,34 @@ const AskPhoneNo = () => {
             We won't call you unless it is absolutely required to process your
             application.
           </Typography>
-          <FormControl sx={{my: '20px'}} >
-          <Select
-          displayEmpty
-            labelId="countryList"
-            id="countryList"
-            value={'Country'}
-            label="Type or select an option"
-            // onChange={handleChange}
-          >
-            <MenuItem value={0}>1</MenuItem>
-          </Select>
-          <TextField
-            type="number"
-            required
-            variant="standard"
-            placeholder="08123456789"
-            sx={{
-              py: "10px",
-              fontSize: "40px",
-              "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
-                fontSize: "25px",
-                color: "#f4f4f4",
-                pb: "5px",
-              },
-            }}
-          />
+          <FormControl sx={{ my: "20px" }}>
+            <Select
+              displayEmpty
+              labelId="countryList"
+              id="countryList"
+              value={"Country"}
+              label="Type or select an option"
+              // onChange={handleChange}
+            >
+              <MenuItem value={0}>1</MenuItem>
+            </Select>
+            <TextField
+              type="number"
+              required
+              variant="standard"
+              placeholder="08123456789"
+              sx={{
+                py: "10px",
+                fontSize: "40px",
+                "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
+                  fontSize: "25px",
+                  color: "#f4f4f4",
+                  pb: "5px",
+                },
+              }}
+            />
           </FormControl>
-          
+
           <Button
             onClick={() => setActiveStep(activeStep + 1)}
             variant="contained"
