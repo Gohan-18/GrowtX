@@ -1,4 +1,4 @@
-import { Typography, Box, Container, Button } from "@mui/material";
+import { Typography, Box, Container, Button, IconButton } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { AppContext } from "../App";
 import AskName from "../components/AskFirstName";
@@ -9,6 +9,7 @@ import AskMail from "../components/AskMail";
 import AskPhoneNo from "../components/AskPhoneNo";
 import AskRole from "../components/AskRole";
 import LandingPage from "../components/LandingPage";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 
 function getCurrentStep (activeStep) {
     switch(activeStep) {
@@ -23,13 +24,21 @@ function getCurrentStep (activeStep) {
     }
 }
 
+function handleScroll() {
+
+}
+
 const Home = () => {
 
     const {activeStep, setActiveStep} = useContext(AppContext);
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" >
+        <IconButton className="animate__animated animate__fadeIn" onClick={() => setActiveStep(prev => prev-1)} sx={{position:'fixed', top: '80px', right: '20px', zIndex: 50, display: activeStep === 0 ? 'none': 'flex'}} >
+            <ArrowCircleUpIcon/>
+        </IconButton>
       <Box
+        onScroll={handleScroll}
         sx={{
           height: "100vh",
           width: "100%",

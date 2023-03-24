@@ -13,3 +13,22 @@
   color: #000;
   height: 80px
 } 
+
+::-webkit-scrollbar {
+  width: 0px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #727171;
+  border-radius: 10px;
+  height: 200px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #c1121f;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}

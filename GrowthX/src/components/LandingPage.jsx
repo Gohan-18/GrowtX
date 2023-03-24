@@ -9,6 +9,7 @@ const LandingPage = () => {
   return (
     <>
       <Box
+      className='animate__animated animate__slideInUp'
         sx={{
           height: "100vh",
           width: "100%",
