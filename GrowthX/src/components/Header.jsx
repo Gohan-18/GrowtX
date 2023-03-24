@@ -22,6 +22,7 @@ const Header = () => {
         }}
       >
         <img
+        className="animate__animated animate__slideInUp"
           onClick={() => setActiveStep(0)}
           style={{ width: "100px", cursor: "pointer" }}
           src={GrowthXLogo}

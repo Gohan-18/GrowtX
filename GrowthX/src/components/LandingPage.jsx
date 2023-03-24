@@ -8,7 +8,7 @@ const LandingPage = () => {
   return (
     <>
       <Box
-        className="animate__animated animate__slideInUp"
+        className="animate__animated animate__fadeIn animate__slow"
         sx={{
           height: "100vh",
           width: "100%",
