@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -14,13 +15,21 @@ import { AppContext } from "../App";
 import { industryList } from "../utils/constants";
 
 const AskIndustry = () => {
-  const { activeStep, setActiveStep, formData, setFormData } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
     useContext(AppContext);
-  const [industry, setIndustry] = useState("");
 
   function handleChange(e) {
-    setIndustry(e.target.value);
-    setFormData((val) => ({...val, industry: e.target.value }));
+    setFormData((val) => ({ ...val, industry: e.target.value }));
+    setError(false);
+    setActiveStep(activeStep + 1);
+  }
+
+  function handleInput() {
+    if (formData.industry.trim() === "") {
+      setError(true);
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   }
 
   return (
@@ -97,14 +106,14 @@ const AskIndustry = () => {
               <Select
                 labelId="industryList"
                 id="industryList"
-                value={industry}
+                value={formData.industry}
                 label="Type or select an option"
                 onChange={handleChange}
                 fullWidth
               >
                 {industryList.map((item) => (
                   <MenuItem
-                  // defaultValue={formData.fName}
+                    // defaultValue={formData.fName}
                     value={item}
                     key={item}
                     sx={{
@@ -119,14 +128,29 @@ const AskIndustry = () => {
               </Select>
             </FormControl>
 
-            <Button
-              onClick={() => setActiveStep(activeStep + 1)}
-              endIcon={<CheckIcon />}
-              variant="contained"
-              sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
-            >
-              Ok
-            </Button>
+            {error ? (
+              <Alert
+                sx={{
+                  fontSize: "16px",
+                  bgcolor: "rgb(247, 230, 230)",
+                  color: "rgb(175, 4, 4)",
+                }}
+                variant="filled"
+                className="animate__animated animate__slideInUp"
+                severity="error"
+              >
+                Please fill this in!!
+              </Alert>
+            ) : (
+              <Button
+                onClick={handleInput}
+                endIcon={<CheckIcon />}
+                variant="contained"
+                sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
+              >
+                Ok
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
