@@ -10,6 +10,7 @@ export const AppContext = createContext(null)
 function App() {
 
   const [activeStep, setActiveStep] = useState(0)
+  const [error, setError] = useState(false)
   const [formData, setFormData] = useState({
     fName: '',
     lName: '',
@@ -29,7 +30,7 @@ function App() {
   ))
 
   return (
-    <AppContext.Provider value={{activeStep, setActiveStep, formData, setFormData}} >
+    <AppContext.Provider value={{activeStep, setActiveStep, formData, setFormData, error, setError}} >
       <RouterProvider router={route} />
     </AppContext.Provider>
   )

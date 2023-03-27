@@ -1,11 +1,21 @@
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskName = () => {
-  const { activeStep, setActiveStep, formData, setFormData } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
     useContext(AppContext);
+
+    function handleInput() {
+      if(formData.fName === null || formData.fName === undefined || formData.fName === '') {
+        setError(true)
+      }
+      else{
+        // setError(false)
+        setActiveStep(activeStep + 1);
+      }
+    }
 
   return (
     <>
@@ -74,6 +84,7 @@ const AskName = () => {
               defaultValue={formData.fName}
               onChange={(e) => {
                 setFormData((val) => ({...val, fName: e.target.value }));
+                setError(false)
               }}
               fullWidth
               placeholder="Type your answer here..."
@@ -87,18 +98,22 @@ const AskName = () => {
                 },
               }}
             />
+            {error ? 
+            <Alert sx={{fontSize: '16px',bgcolor: 'rgb(247, 230, 230)', color: 'rgb(175, 4, 4)', }} variant="filled" className="animate__animated animate__slideInUp" severity="error">Please fill this in!!</Alert>
+            : 
             <Button
               // type='submit'
-              onClick={(e) => {
-                // e.preventDefault();
-                setActiveStep(activeStep + 1);
-              }}
+              // onClick={(e) => {
+              //   // e.preventDefault();
+              //   setActiveStep(activeStep + 1);
+              // }}
+              onClick={handleInput}
               endIcon={<CheckIcon />}
               variant="contained"
               sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
             >
               Ok
-            </Button>
+            </Button>}
             {/* </form> */}
           </Box>
         </Box>
