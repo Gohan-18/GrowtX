@@ -13,27 +13,36 @@ import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskPhoneNo = () => {
-  const { activeStep, setActiveStep } = useContext(AppContext);
-
+  const { activeStep, setActiveStep, formData, setFormData } =
+    useContext(AppContext);
   return (
     <>
       <Box
+        className="animate__animated animate__slideInUp"
         sx={{
-          //   height: "100vh",
+          height: "100vh",
           width: "100%",
           display: "flex",
-          alignItems: "start",
-          justifyContent: "start",
-          gap: {
-            xs: 1,
-            md: 2,
-          },
-          px: {
-            xs: "10px",
-            sm: "50px",
-          },
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "start",
+            justifyContent: "start",
+            gap: {
+              xs: 1,
+              md: 2,
+            },
+            px: {
+              xs: "10px",
+              sm: "50px",
+            },
+          }}
+        >
         <Typography
           sx={{
             fontSize: {
@@ -109,6 +118,7 @@ const AskPhoneNo = () => {
             Submit
           </Button>
         </Box>
+      </Box>
       </Box>
     </>
   );

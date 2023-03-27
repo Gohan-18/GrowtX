@@ -10,6 +10,17 @@ export const AppContext = createContext(null)
 function App() {
 
   const [activeStep, setActiveStep] = useState(0)
+  const [formData, setFormData] = useState({
+    fName: '',
+    lName: '',
+    industry: '',
+    role: '',
+    goal: '',
+    mail: '',
+    phone: 0
+  })
+
+  console.log(formData)
 
   const route = createBrowserRouter(createRoutesFromElements(
     <Route path='/' element={<Layout/>} >
@@ -18,7 +29,7 @@ function App() {
   ))
 
   return (
-    <AppContext.Provider value={{activeStep, setActiveStep}} >
+    <AppContext.Provider value={{activeStep, setActiveStep, formData, setFormData}} >
       <RouterProvider router={route} />
     </AppContext.Provider>
   )

@@ -1,10 +1,11 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskName = () => {
-  const { activeStep, setActiveStep } = useContext(AppContext);
+  const { activeStep, setActiveStep, formData, setFormData } =
+    useContext(AppContext);
 
   return (
     <>
@@ -66,9 +67,14 @@ const AskName = () => {
             >
               What's your first name? *
             </Typography>
+            {/* <form style={{width: '100%'}} > */}
             <TextField
               required
               variant="standard"
+              defaultValue={formData.fName}
+              onChange={(e) => {
+                setFormData((val) => ({...val, fName: e.target.value }));
+              }}
               fullWidth
               placeholder="Type your answer here..."
               sx={{
@@ -82,13 +88,18 @@ const AskName = () => {
               }}
             />
             <Button
-              onClick={() => setActiveStep(activeStep + 1)}
+              // type='submit'
+              onClick={(e) => {
+                // e.preventDefault();
+                setActiveStep(activeStep + 1);
+              }}
               endIcon={<CheckIcon />}
               variant="contained"
               sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
             >
               Ok
             </Button>
+            {/* </form> */}
           </Box>
         </Box>
       </Box>

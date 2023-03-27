@@ -6,7 +6,11 @@
 }
 
 .a {
-  color: #ffffffb3
+  color: #edebeb43
+}
+
+li {
+  border: 2px solid #fff
 }
 
 .css-ume8vi-MuiInputBase-input-MuiInput-input {

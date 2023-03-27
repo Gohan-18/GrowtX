@@ -149,3 +149,11 @@ export const industryList = [
   "Wireless",
   "Writing and Editing",
 ];
+
+export const rolesList = [
+  'Founder or CXO',
+  'Product Team',
+  'Marketing Team',
+  'VC',
+  'Others'
+]
