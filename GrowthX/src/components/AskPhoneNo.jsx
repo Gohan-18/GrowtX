@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -13,8 +14,37 @@ import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskPhoneNo = () => {
-  const { activeStep, setActiveStep, formData, setFormData } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
     useContext(AppContext);
+
+    function handleInput() {
+      // if (
+      //   formData.phone === null ||
+      //   formData.phone === undefined ||
+      //   typeof formData.phone === 'string' ||
+      //   formData.phone.trim() === ''
+      // ) {
+      //   setError(true);
+      //   setFormData((val) => ({ ...val, phone: 0 }));
+      // } else {
+      //   // setError(false)
+      //   setActiveStep(activeStep + 1);
+      // }
+    }
+
+    function handleChange(e) {
+      // if(typeof formData.phone === 'number') {
+      //   setFormData((val) => ({ ...val, phone: e.target.value }));
+      //   setError(false);
+      // }
+      // else {
+      //   setFormData((val) => ({ ...val, phone: 0 }));
+      //   setError(true);
+      // }
+
+      setFormData((val) => ({ ...val, phone: e.target.value }));
+    }
+
   return (
     <>
       <Box
@@ -83,7 +113,7 @@ const AskPhoneNo = () => {
             application.
           </Typography>
           <FormControl sx={{ my: "20px" }}>
-            <Select
+            {/* <Select
               displayEmpty
               labelId="countryList"
               id="countryList"
@@ -92,9 +122,11 @@ const AskPhoneNo = () => {
               // onChange={handleChange}
             >
               <MenuItem value={0}>1</MenuItem>
-            </Select>
+            </Select> */}
             <TextField
-              type="number"
+              type="text"
+              value={formData.phone}
+              onChange={handleChange}
               required
               variant="standard"
               placeholder="08123456789"
@@ -110,13 +142,29 @@ const AskPhoneNo = () => {
             />
           </FormControl>
 
-          <Button
-            onClick={() => setActiveStep(activeStep + 1)}
-            variant="contained"
-            sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
-          >
-            Submit
-          </Button>
+            {error ? (
+              <Alert
+                sx={{
+                  fontSize: "16px",
+                  bgcolor: "rgb(247, 230, 230)",
+                  color: "rgb(175, 4, 4)",
+                }}
+                variant="filled"
+                className="animate__animated animate__slideInUp"
+                severity="error"
+              >
+                Please fill this in!!
+              </Alert>
+            ) : (
+              <Button
+                onClick={handleInput}
+                endIcon={<CheckIcon />}
+                variant="contained"
+                sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
+              >
+                Ok
+              </Button>
+            )}
         </Box>
       </Box>
       </Box>

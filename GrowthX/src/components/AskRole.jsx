@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   FormControlLabel,
@@ -12,10 +13,25 @@ import React, { useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 import { rolesList } from "../utils/constants";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
 const AskRole = () => {
-  const { activeStep, setActiveStep, formData, setFormData } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
     useContext(AppContext);
+
+    function handleInput() {
+      if (
+        formData.role === null ||
+        formData.role === undefined ||
+        formData.role.trim() === ''
+      ) {
+        setError(true);
+      } else {
+        // setError(false)
+        setActiveStep(activeStep + 1);
+      }
+    }
+
   return (
     <>
       <Box
@@ -99,38 +115,38 @@ const AskRole = () => {
               aria-labelledby="askRole"
               value={formData.role}
               onChange={(e) => {
-                setFormData((val) => ({...val, role: e.target.value }));
+                setFormData((val) => ({ ...val, role: e.target.value }));
+                setError(false)
+                setActiveStep(activeStep + 1)
               }}
               name="askRole"
             >
               {rolesList.map((item) => (
-                // <IconButton
-                //   key={item}
-                //   sx={{
-                //     border: "2px solid #f4f4f4",
-                //     mt: "10px",
-                //     pr: "10px",
-                //     borderRadius: "5px",
-                //   }}
-                // >
                 <FormControlLabel
                   key={item}
                   sx={{
-                    // fontSize: '10px',
-                    border: "2px solid #f4f4f4",
+                    border:
+                      formData.role === item
+                        ? "3px solid #f4f4f4"
+                        : "3px solid #a09e9ed2",
                     mt: "10px",
-                    pr: "10px",
+                    px: "15px",
+                    py: "5px",
                     borderRadius: "5px",
-                    transition: 'all 200ms',
-                    '&:hover' : {
-                      bgcolor: '#edebeb43'
-                    }
+                    transition: "all 200ms",
+                    bgcolor: "#fcfbfb13",
+                    fontSize: "12px",
+                    "&:hover": {
+                      bgcolor: "#edebeb43",
+                    },
+                    "& .PrivateSwitchBase-input": {
+                      display: "none",
+                    },
                   }}
                   value={item}
-                  control={<Radio />}
+                  control={<Radio sx={{ display: "none" }} />}
                   label={item}
                 />
-                // </IconButton>
               ))}
             </RadioGroup>
             {/* <TextField
@@ -144,14 +160,29 @@ const AskRole = () => {
             placeholder="Type your answer here..."
             sx={{ py: "10px", fontSize: "40px" }}
           /> */}
-            <Button
-              onClick={() => setActiveStep(activeStep + 1)}
-              endIcon={<CheckIcon />}
-              variant="contained"
-              sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
-            >
-              Ok
-            </Button>
+            {error ? (
+              <Alert
+                sx={{
+                  fontSize: "16px",
+                  bgcolor: "rgb(247, 230, 230)",
+                  color: "rgb(175, 4, 4)",
+                }}
+                variant="filled"
+                className="animate__animated animate__slideInUp"
+                severity="error"
+              >
+                Please fill this in!!
+              </Alert>
+            ) : (
+              <Button
+                onClick={handleInput}
+                endIcon={<CheckIcon />}
+                variant="contained"
+                sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
+              >
+                Ok
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>

@@ -18,7 +18,7 @@ function App() {
     role: '',
     goal: '',
     mail: '',
-    phone: 0
+    phone: ''
   })
 
   console.log(formData)

@@ -1,7 +1,16 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useContext } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
+import { founderGoal, otherGoals } from "../utils/constants";
 
 const AskGoal = () => {
   const { activeStep, setActiveStep, formData, setFormData } =
@@ -66,13 +75,126 @@ const AskGoal = () => {
             >
               What's your professional goal for the next 12 months? *
             </Typography>
-            <TextField
-              required
-              variant="standard"
-              fullWidth
-              placeholder="Type your answer here..."
-              sx={{ py: "10px", fontSize: "40px" }}
-            />
+            {formData.role === "Founder or CXO" ? (
+              <RadioGroup
+                sx={{ py: "20px", ml: "10px" }}
+                aria-labelledby="askRole"
+                value={formData.role}
+                onChange={(e) => {
+                  setFormData((val) => ({ ...val, role: e.target.value }));
+                  setError(false);
+                  setActiveStep(activeStep + 1);
+                }}
+                name="askRole"
+              >
+                {founderGoal.map((item) => (
+                  <FormControlLabel
+                    key={item}
+                    sx={{
+                      border:
+                        formData.role === item
+                          ? "3px solid #f4f4f4"
+                          : "3px solid #a09e9ed2",
+                      mt: "10px",
+                      px: "15px",
+                      py: "5px",
+                      borderRadius: "5px",
+                      transition: "all 200ms",
+                      bgcolor: "#fcfbfb13",
+                      fontSize: "12px",
+                      "&:hover": {
+                        bgcolor: "#edebeb43",
+                      },
+                      "& .PrivateSwitchBase-input": {
+                        display: "none",
+                      },
+                    }}
+                    value={item}
+                    control={<Radio sx={{ display: "none" }} />}
+                    label={item}
+                  />
+                ))}
+              </RadioGroup>
+            ) : (
+              <RadioGroup
+                sx={{ py: "20px", ml: "10px" }}
+                aria-labelledby="askRole"
+                value={formData.role}
+                onChange={(e) => {
+                  setFormData((val) => ({ ...val, role: e.target.value }));
+                  setError(false);
+                  setActiveStep(activeStep + 1);
+                }}
+                name="askRole"
+              >
+                {otherGoals.map((item) => (
+                  <FormControlLabel
+                    key={item}
+                    sx={{
+                      border:
+                        formData.role === item
+                          ? "3px solid #f4f4f4"
+                          : "3px solid #a09e9ed2",
+                      mt: "10px",
+                      px: "15px",
+                      py: "5px",
+                      borderRadius: "5px",
+                      transition: "all 200ms",
+                      bgcolor: "#fcfbfb13",
+                      fontSize: "12px",
+                      "&:hover": {
+                        bgcolor: "#edebeb43",
+                      },
+                      "& .PrivateSwitchBase-input": {
+                        display: "none",
+                      },
+                    }}
+                    value={item}
+                    control={<Radio sx={{ display: "none" }} />}
+                    label={item}
+                  />
+                ))}
+              </RadioGroup>
+            )}
+            {/* <RadioGroup
+              sx={{ py: "20px", ml: "10px" }}
+              aria-labelledby="askRole"
+              value={formData.role}
+              onChange={(e) => {
+                setFormData((val) => ({ ...val, role: e.target.value }));
+                setError(false)
+                setActiveStep(activeStep + 1)
+              }}
+              name="askRole"
+            >
+              {founderGoal.map((item) => (
+                <FormControlLabel
+                  key={item}
+                  sx={{
+                    border:
+                      formData.role === item
+                        ? "3px solid #f4f4f4"
+                        : "3px solid #a09e9ed2",
+                    mt: "10px",
+                    px: "15px",
+                    py: "5px",
+                    borderRadius: "5px",
+                    transition: "all 200ms",
+                    bgcolor: "#fcfbfb13",
+                    fontSize: "12px",
+                    "&:hover": {
+                      bgcolor: "#edebeb43",
+                    },
+                    "& .PrivateSwitchBase-input": {
+                      display: "none",
+                    },
+                  }}
+                  value={item}
+                  control={<Radio sx={{ display: "none" }} />}
+                  label={item}
+                />
+              ))}
+            </RadioGroup> */}
             <Button
               onClick={() => setActiveStep(activeStep + 1)}
               endIcon={<CheckIcon />}

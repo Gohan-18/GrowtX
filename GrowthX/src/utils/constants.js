@@ -157,3 +157,17 @@ export const rolesList = [
   'VC',
   'Others'
 ]
+
+export const founderGoal = [
+  'Structured approach to growth',
+  'Build a growth team',
+  'Connect with like-minded people'
+]
+
+export const otherGoals = [
+  'Get hired',
+  'Get promoted',
+  'Connect with like-minded people',
+  'Structured approach to growth',
+  'Build a growth team'
+]
