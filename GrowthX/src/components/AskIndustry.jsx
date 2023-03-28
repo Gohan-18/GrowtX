@@ -15,7 +15,7 @@ import { AppContext } from "../App";
 import { industryList } from "../utils/constants";
 
 const AskIndustry = () => {
-  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError, setProgress } =
     useContext(AppContext);
 
   function handleChange(e) {
@@ -31,6 +31,14 @@ const AskIndustry = () => {
       setActiveStep(activeStep + 1);
     }
   }
+
+  // if(formData.industry.trim() === '') {
+  //   setProgress(50)
+  // }
+  // else {
+  //   setProgress(75)
+  // }
+
 
   return (
     <>

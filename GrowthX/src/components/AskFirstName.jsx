@@ -6,12 +6,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskName = () => {
-  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError, progress, setProgress } =
     useContext(AppContext);
 
   function handleInput() {
@@ -26,6 +26,30 @@ const AskName = () => {
       setActiveStep(activeStep + 1);
     }
   }
+
+  function handleCHange(e) {
+    setFormData((val) => ({ ...val, fName: e.target.value }));
+    setError(false);
+    // if(formData.fName.trim() === '') {
+    //   setProgress(0)
+    // }
+    // else {
+    //   setProgress(25)
+    // }
+  }
+
+  if(formData.fName.trim() === '') {
+    setProgress(0)
+  }
+  else {
+    setProgress(25)
+  }
+
+  // useEffect(() => {
+
+
+  // }, [formData.fName])
+  
 
   return (
     <>
@@ -92,10 +116,7 @@ const AskName = () => {
               required
               variant="standard"
               defaultValue={formData.fName}
-              onChange={(e) => {
-                setFormData((val) => ({ ...val, fName: e.target.value }));
-                setError(false);
-              }}
+              onChange={handleCHange}
               fullWidth
               placeholder="Type your answer here..."
               sx={{

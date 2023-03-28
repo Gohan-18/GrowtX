@@ -16,7 +16,7 @@ import { rolesList } from "../utils/constants";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 
 const AskRole = () => {
-  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError, setProgress } =
     useContext(AppContext);
 
     function handleInput() {
@@ -30,6 +30,13 @@ const AskRole = () => {
         // setError(false)
         setActiveStep(activeStep + 1);
       }
+    }
+
+    if(formData.industry.trim() === '') {
+      setProgress(50)
+    }
+    else {
+      setProgress(75)
     }
 
   return (

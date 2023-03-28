@@ -9,6 +9,7 @@ export const AppContext = createContext(null)
 
 function App() {
 
+  const [progress, setProgress] = useState(0);
   const [activeStep, setActiveStep] = useState(0)
   const [error, setError] = useState(false)
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ function App() {
   ))
 
   return (
-    <AppContext.Provider value={{activeStep, setActiveStep, formData, setFormData, error, setError}} >
+    <AppContext.Provider value={{activeStep, setActiveStep, formData, setFormData, error, setError, progress, setProgress}} >
       <RouterProvider router={route} />
     </AppContext.Provider>
   )

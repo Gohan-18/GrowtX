@@ -4,7 +4,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskLastName = () => {
-  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError, setProgress } =
     useContext(AppContext);
 
   function handleInput() {
@@ -18,6 +18,13 @@ const AskLastName = () => {
       // setError(false)
       setActiveStep(activeStep + 1);
     }
+  }
+
+  if(formData.lName.trim() === '') {
+    setProgress(25)
+  }
+  else {
+    setProgress(50)
   }
 
   return (

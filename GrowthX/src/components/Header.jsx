@@ -4,8 +4,10 @@ import { AppContext } from "../App";
 import GrowthXLogo from "../assets/Dark background full logo.svg";
 
 const Header = () => {
-  const [progress, setProgress] = useState(50);
-  const { setActiveStep } = useContext(AppContext);
+
+  const { setActiveStep, progress, setProgress, formData } = useContext(AppContext);
+
+
 
   return (
     <Box sx={{ position: "fixed", top: 0, left: 0, right: 0 }}>

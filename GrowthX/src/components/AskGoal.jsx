@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -13,8 +14,17 @@ import { AppContext } from "../App";
 import { founderGoal, otherGoals } from "../utils/constants";
 
 const AskGoal = () => {
-  const { activeStep, setActiveStep, formData, setFormData } =
+  const { activeStep, setActiveStep, formData, setFormData, setProgress } =
     useContext(AppContext);
+
+    if(formData.role.trim() === '') {
+      setProgress(75)
+    }
+    else {
+      setProgress(60)
+    }
+
+
   return (
     <>
       <Box
@@ -76,7 +86,7 @@ const AskGoal = () => {
               What's your professional goal for the next 12 months? *
             </Typography>
             {formData.role === "Founder or CXO" ? (
-              <RadioGroup
+              <Box
                 sx={{ py: "20px", ml: "10px" }}
                 aria-labelledby="askRole"
                 value={formData.role}
@@ -110,13 +120,13 @@ const AskGoal = () => {
                       },
                     }}
                     value={item}
-                    control={<Radio sx={{ display: "none" }} />}
+                    control={<Checkbox sx={{ display: "none" }} />}
                     label={item}
                   />
                 ))}
-              </RadioGroup>
+              </Box>
             ) : (
-              <RadioGroup
+              <Box
                 sx={{ py: "20px", ml: "10px" }}
                 aria-labelledby="askRole"
                 value={formData.role}
@@ -150,11 +160,11 @@ const AskGoal = () => {
                       },
                     }}
                     value={item}
-                    control={<Radio sx={{ display: "none" }} />}
+                    control={<Checkbox  />}
                     label={item}
                   />
                 ))}
-              </RadioGroup>
+              </Box>
             )}
             {/* <RadioGroup
               sx={{ py: "20px", ml: "10px" }}
