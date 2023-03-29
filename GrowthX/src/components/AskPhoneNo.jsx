@@ -9,13 +9,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskPhoneNo = () => {
-  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
-    useContext(AppContext);
+  const {
+    activeStep,
+    setActiveStep,
+    formData,
+    setFormData,
+    error,
+    setError,
+    setProgress,
+    flags,
+  } = useContext(AppContext);
+
+  const [flag, setFlag] = useState(flags[109])
 
   function handleInput() {
     // if (
@@ -30,11 +40,35 @@ const AskPhoneNo = () => {
     //   // setError(false)
     //   setActiveStep(activeStep + 1);
     // }
+
+    if (formData.phone.trim() === "" || formData.phone.length < 10 || formData.phone.length > 10) {
+      setError(true);
+    } else {
+      console.log("success");
+      setProgress(100);
+      setActiveStep(activeStep + 1);
+    }
   }
 
   function handleChange(e) {
+    setError(false);
     setFormData((val) => ({ ...val, phone: e.target.value }));
   }
+
+  function handleFlagChange(e) {
+    console.log(flags.indexOf(e.target.value))
+    setFlag(flags[flags.indexOf(e.target.value)])
+  }
+
+  useEffect(() => {
+    if (formData.phone.length) {
+      setProgress(100);
+    }
+    else {
+      setProgress(85);
+    }
+  }, [formData.phone])
+  
 
   return (
     <>
@@ -103,17 +137,65 @@ const AskPhoneNo = () => {
               We won't call you unless it is absolutely required to process your
               application.
             </Typography>
-            <FormControl sx={{ my: "20px" }}>
-              {/* <Select
-              displayEmpty
-              labelId="countryList"
-              id="countryList"
-              value={"Country"}
-              label="Type or select an option"
-              // onChange={handleChange}
-            >
-              <MenuItem value={0}>1</MenuItem>
-            </Select> */}
+            <Box sx={{ my: "20px", display: 'flex', gap: 3, }}>
+              <Select
+              // sx={{mx: '10px'}}
+                // displayEmpty
+                // labelId="countryList"
+                variant="standard"
+                id="countryList"
+                value={flag}
+                // label="Type or select an option"
+                autoWidth
+              //   input={<img
+              //     src={`https://flagcdn.com/28x21/za.png`}
+              //     srcset={`https://flagcdn.com/32x24/za.png 2x,
+              // https://flagcdn.com/48x36/za.png 3x`}
+              //     width="28"
+              //     height="21"
+              //     alt={`item`}
+              //   />}
+                onChange={handleFlagChange}
+              >
+                {flags.map((item) => (
+                  <MenuItem                     sx={{
+                    // color: '#f4f4f4',
+                    width: "100%",
+                    border :'3px solid #a09e9ed2',
+                    // border:
+                    //   formData.goal[0] === item || formData.goal[1] === item
+                    //     ? "3px solid #f4f4f4"
+                    //     : "3px solid #a09e9ed2",
+                    my: "5px",
+                    // px: "25px",
+                    // py: "5px",
+                    transition: "all 200ms",
+                    // bgcolor: "#fcfbfb13",
+                    fontSize: "12px",
+                    "&:hover": {
+                      bgcolor: "#fcfbfb13",
+                    },
+                    // "& .PrivateSwitchBase-input": {
+                    //   display: "none",
+                    // },
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "start",
+                    justifyContent: "start",
+                    borderRadius: "5px",
+                  }} value={item} key={item}>
+                    <img
+                    style={{margin: '5px 10px 5px 10px'}}
+                      src={`https://flagcdn.com/28x21/${item}.png`}
+                  //     srcset={`https://flagcdn.com/32x24/za.png 2x,
+                  // https://flagcdn.com/48x36/za.png 3x`}
+                      width="28"
+                      height="21"
+                      alt={item}
+                    />
+                  </MenuItem>
+                ))}
+              </Select>
               <TextField
                 type="number"
                 value={formData.phone}
@@ -138,7 +220,7 @@ const AskPhoneNo = () => {
                   },
                 }}
               />
-            </FormControl>
+            </Box>
 
             {error ? (
               <Alert

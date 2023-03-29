@@ -1,5 +1,5 @@
 import { Typography, Box, Container, Button, IconButton } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../App";
 import AskName from "../components/AskFirstName";
 import AskGoal from "../components/AskGoal";
@@ -10,6 +10,7 @@ import AskPhoneNo from "../components/AskPhoneNo";
 import AskRole from "../components/AskRole";
 import LandingPage from "../components/LandingPage";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import Confirmation from "../components/Confirmation";
 
 function getCurrentStep(activeStep) {
   switch (activeStep) {
@@ -29,13 +30,30 @@ function getCurrentStep(activeStep) {
       return <AskMail />;
     case 7:
       return <AskPhoneNo />;
+    case 8:
+      return <Confirmation />;
   }
 }
 
 function handleScroll() {}
 
 const Home = () => {
-  const { activeStep, setActiveStep } = useContext(AppContext);
+  const { activeStep, setActiveStep, flags, setFlags } = useContext(AppContext);
+
+  async function fetchFlags () {
+    await fetch('https://flagcdn.com/en/codes.json')
+    .then((data) => data.json())
+    .then((result) => {
+      const flagsArray = Object.keys(result);
+      setFlags(flagsArray)
+    })
+  }
+
+  useEffect(() => {
+    fetchFlags()
+  }, [])
+
+  console.log(flags)
 
   return (
     <Container maxWidth="md">
