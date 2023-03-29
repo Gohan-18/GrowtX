@@ -4,8 +4,8 @@ import { AppContext } from "../App";
 import GrowthXLogo from "../assets/Dark background full logo.svg";
 
 const Header = () => {
-
-  const { setActiveStep, progress, setProgress, formData } = useContext(AppContext);
+  const { setActiveStep, progress, setProgress, formData } =
+    useContext(AppContext);
 
   // if(formData.fName.trim() === '') {
   //   setProgress(0)
@@ -16,7 +16,16 @@ const Header = () => {
 
   return (
     <Box sx={{ position: "fixed", top: 0, left: 0, right: 0 }}>
-      <LinearProgress variant="determinate" value={progress} />
+      <LinearProgress
+        sx={{
+          backgroundColor: "#0366d759",
+          "& .MuiLinearProgress-bar": {
+            backgroundColor: "#0077ff",
+          },
+        }}
+        variant="determinate"
+        value={progress}
+      />
       <Box
         sx={{
           width: "100%",
@@ -29,7 +38,7 @@ const Header = () => {
         }}
       >
         <img
-        className="animate__animated animate__slideInUp"
+          className="animate__animated animate__slideInUp"
           onClick={() => setActiveStep(0)}
           style={{ width: "100px", cursor: "pointer" }}
           src={GrowthXLogo}
