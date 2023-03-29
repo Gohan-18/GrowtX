@@ -17,33 +17,24 @@ const AskPhoneNo = () => {
   const { activeStep, setActiveStep, formData, setFormData, error, setError } =
     useContext(AppContext);
 
-    function handleInput() {
-      // if (
-      //   formData.phone === null ||
-      //   formData.phone === undefined ||
-      //   typeof formData.phone === 'string' ||
-      //   formData.phone.trim() === ''
-      // ) {
-      //   setError(true);
-      //   setFormData((val) => ({ ...val, phone: 0 }));
-      // } else {
-      //   // setError(false)
-      //   setActiveStep(activeStep + 1);
-      // }
-    }
+  function handleInput() {
+    // if (
+    //   formData.phone === null ||
+    //   formData.phone === undefined ||
+    //   typeof formData.phone === 'string' ||
+    //   formData.phone.trim() === ''
+    // ) {
+    //   setError(true);
+    //   setFormData((val) => ({ ...val, phone: 0 }));
+    // } else {
+    //   // setError(false)
+    //   setActiveStep(activeStep + 1);
+    // }
+  }
 
-    function handleChange(e) {
-      // if(typeof formData.phone === 'number') {
-      //   setFormData((val) => ({ ...val, phone: e.target.value }));
-      //   setError(false);
-      // }
-      // else {
-      //   setFormData((val) => ({ ...val, phone: 0 }));
-      //   setError(true);
-      // }
-
-      setFormData((val) => ({ ...val, phone: e.target.value }));
-    }
+  function handleChange(e) {
+    setFormData((val) => ({ ...val, phone: e.target.value }));
+  }
 
   return (
     <>
@@ -73,47 +64,47 @@ const AskPhoneNo = () => {
             },
           }}
         >
-        <Typography
-          sx={{
-            fontSize: {
-              xs: "12px",
-              sm: "15px",
-            },
-            minWidth: "max-content",
-            py: {
-              xs: "6px",
-              md: "8px",
-            },
-          }}
-        >
-          {activeStep} ➜
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            alignContent: "center",
-            height: "100%",
-            width: "100%",
-            alignItems: "start",
-            justifyContent: "center",
-            flexDirection: "column",
-          }}
-        >
           <Typography
-            gutterBottom
-            sx={{ color: "#fff", fontSize: { xs: "20px", md: "24px" } }}
+            sx={{
+              fontSize: {
+                xs: "12px",
+                sm: "15px",
+              },
+              minWidth: "max-content",
+              py: {
+                xs: "6px",
+                md: "8px",
+              },
+            }}
           >
-            Your phone number *
+            {activeStep} ➜
           </Typography>
-          <Typography
-            gutterBottom
-            sx={{ color: "#ffffffb3", fontSize: { xs: "16px", md: "20px" } }}
+          <Box
+            sx={{
+              display: "flex",
+              alignContent: "center",
+              height: "100%",
+              width: "100%",
+              alignItems: "start",
+              justifyContent: "center",
+              flexDirection: "column",
+            }}
           >
-            We won't call you unless it is absolutely required to process your
-            application.
-          </Typography>
-          <FormControl sx={{ my: "20px" }}>
-            {/* <Select
+            <Typography
+              gutterBottom
+              sx={{ color: "#fff", fontSize: { xs: "20px", md: "24px" } }}
+            >
+              Your phone number *
+            </Typography>
+            <Typography
+              gutterBottom
+              sx={{ color: "#ffffffb3", fontSize: { xs: "16px", md: "20px" } }}
+            >
+              We won't call you unless it is absolutely required to process your
+              application.
+            </Typography>
+            <FormControl sx={{ my: "20px" }}>
+              {/* <Select
               displayEmpty
               labelId="countryList"
               id="countryList"
@@ -123,24 +114,31 @@ const AskPhoneNo = () => {
             >
               <MenuItem value={0}>1</MenuItem>
             </Select> */}
-            <TextField
-              type="text"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              variant="standard"
-              placeholder="08123456789"
-              sx={{
-                py: "10px",
-                fontSize: "40px",
-                "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
-                  fontSize: "25px",
-                  color: "#f4f4f4",
-                  pb: "5px",
-                },
-              }}
-            />
-          </FormControl>
+              <TextField
+                type="number"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                variant="standard"
+                placeholder="08123456789"
+                sx={{
+                  // py: "10px",
+                  fontSize: "40px",
+                  "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
+                    fontSize: "25px",
+                    color: "#f4f4f4",
+                    pb: "5px",
+                  },
+                  "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                    {
+                      display: "none",
+                    },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
+              />
+            </FormControl>
 
             {error ? (
               <Alert
@@ -158,15 +156,14 @@ const AskPhoneNo = () => {
             ) : (
               <Button
                 onClick={handleInput}
-                endIcon={<CheckIcon />}
                 variant="contained"
-                sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
+                sx={{ color: "#fff", backgroundColor: "#0077ff" }}
               >
-                Ok
+                Submit
               </Button>
             )}
+          </Box>
         </Box>
-      </Box>
       </Box>
     </>
   );

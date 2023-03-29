@@ -1,10 +1,10 @@
 import { Alert, Box, Button, TextField, Typography } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskMail = () => {
-  const { activeStep, setActiveStep, formData, setFormData, error, setError } =
+  const { activeStep, setActiveStep, formData, setFormData, error, setError, setProgress } =
     useContext(AppContext);
 
   function handleInput() {
@@ -20,6 +20,14 @@ const AskMail = () => {
       setActiveStep(activeStep + 1);
     }
   }
+
+  useEffect(() => {
+    if (formData.mail.trim() === '') {
+      setProgress(75);
+    } else {
+      setProgress(85);
+    }
+  }, [formData.mail]);
 
   return (
     <>

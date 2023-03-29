@@ -17,7 +17,7 @@ function App() {
     lName: '',
     industry: '',
     role: '',
-    goal: '',
+    goal: [],
     mail: '',
     phone: ''
   })

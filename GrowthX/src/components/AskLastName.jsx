@@ -1,5 +1,5 @@
 import { Alert, Box, Button, TextField, Typography } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
@@ -20,12 +20,14 @@ const AskLastName = () => {
     }
   }
 
-  if(formData.lName.trim() === '') {
-    setProgress(25)
-  }
-  else {
-    setProgress(50)
-  }
+  useEffect(() => {
+    if(formData.lName.trim() === '') {
+      setProgress(25)
+    }
+    else {
+      setProgress(50)
+    }
+  }, [formData.lName])
 
   return (
     <>

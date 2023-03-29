@@ -1,28 +1,70 @@
 import {
+  Alert,
   Box,
   Button,
   Checkbox,
   FormControlLabel,
+  IconButton,
   Radio,
   RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 import { founderGoal, otherGoals } from "../utils/constants";
 
+// const newArr = [];
+
 const AskGoal = () => {
-  const { activeStep, setActiveStep, formData, setFormData, setProgress } =
+  const { activeStep, setActiveStep, formData, setFormData, setProgress, error, setError } =
     useContext(AppContext);
 
-    if(formData.role.trim() === '') {
-      setProgress(75)
+    const newArr = formData.goal;
+
+  console.log(newArr);
+
+  useEffect(() => {
+    if (formData.goal.length === 0) {
+      setProgress(60);
+    } else {
+      setProgress(75);
+    }
+  }, [formData.goal]);
+
+  function handleChange(item) {
+    console.log(item);
+    setError(false)
+
+    if (newArr[0] === item || newArr[1] === item) {
+      let index = newArr.indexOf(item);
+      if (index !== -1) {
+        newArr.splice(index, 2);
+        setFormData((val) => ({ ...val, goal: newArr }));
+      }
+    } else {
+      setFormData((val) => {
+        if (newArr.length < 2) {
+          newArr.push(item);
+          return { ...val, goal: newArr };
+        } else {
+          newArr.pop();
+          newArr.push(item);
+          return { ...val, goal: newArr };
+        }
+      });
+    }
+  }
+
+  function handleNext () {
+    if(formData.goal.length === 2) {
+      setActiveStep(activeStep + 1);
     }
     else {
-      setProgress(60)
+      setError(true)
     }
+  }
 
 
   return (
@@ -87,28 +129,35 @@ const AskGoal = () => {
             </Typography>
             {formData.role === "Founder or CXO" ? (
               <Box
-                sx={{ py: "20px", ml: "10px" }}
-                aria-labelledby="askRole"
-                value={formData.role}
-                onChange={(e) => {
-                  setFormData((val) => ({ ...val, role: e.target.value }));
-                  setError(false);
-                  setActiveStep(activeStep + 1);
+                sx={{
+                  py: "20px",
+                  ml: "10px",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
-                name="askRole"
               >
                 {founderGoal.map((item) => (
-                  <FormControlLabel
+                  <IconButton
+                    disableRipple
+                    disabled={
+                      formData.goal.length === 2
+                        ? formData.goal[0] === item || formData.goal[1] === item
+                          ? false
+                          : true
+                        : false
+                    }
                     key={item}
+                    onClick={() => handleChange(item)}
                     sx={{
+                      // color: '#f4f4f4',
+                      width: "100%",
                       border:
-                        formData.role === item
+                        formData.goal[0] === item || formData.goal[1] === item
                           ? "3px solid #f4f4f4"
                           : "3px solid #a09e9ed2",
                       mt: "10px",
-                      px: "15px",
+                      px: "25px",
                       py: "5px",
-                      borderRadius: "5px",
                       transition: "all 200ms",
                       bgcolor: "#fcfbfb13",
                       fontSize: "12px",
@@ -118,37 +167,48 @@ const AskGoal = () => {
                       "& .PrivateSwitchBase-input": {
                         display: "none",
                       },
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "start",
+                      justifyContent: "start",
+                      borderRadius: "5px",
                     }}
-                    value={item}
-                    control={<Checkbox sx={{ display: "none" }} />}
-                    label={item}
-                  />
+                  >
+                    <Typography>{item}</Typography>
+                  </IconButton>
                 ))}
               </Box>
             ) : (
               <Box
-                sx={{ py: "20px", ml: "10px" }}
-                aria-labelledby="askRole"
-                value={formData.role}
-                onChange={(e) => {
-                  setFormData((val) => ({ ...val, role: e.target.value }));
-                  setError(false);
-                  setActiveStep(activeStep + 1);
+                sx={{
+                  py: "20px",
+                  ml: "10px",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
-                name="askRole"
               >
                 {otherGoals.map((item) => (
-                  <FormControlLabel
+                  <IconButton
+                    disableRipple
+                    disabled={
+                      formData.goal.length === 2
+                        ? formData.goal[0] === item || formData.goal[1] === item
+                          ? false
+                          : true
+                        : false
+                    }
                     key={item}
+                    onClick={() => handleChange(item)}
                     sx={{
+                      // color: '#f4f4f4',
+                      width: "100%",
                       border:
-                        formData.role === item
+                        formData.goal[0] === item || formData.goal[1] === item
                           ? "3px solid #f4f4f4"
                           : "3px solid #a09e9ed2",
                       mt: "10px",
-                      px: "15px",
+                      px: "25px",
                       py: "5px",
-                      borderRadius: "5px",
                       transition: "all 200ms",
                       bgcolor: "#fcfbfb13",
                       fontSize: "12px",
@@ -158,15 +218,52 @@ const AskGoal = () => {
                       "& .PrivateSwitchBase-input": {
                         display: "none",
                       },
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "start",
+                      justifyContent: "start",
+                      borderRadius: "5px",
                     }}
-                    value={item}
-                    control={<Checkbox  />}
-                    label={item}
-                  />
+                  >
+                    <Typography>{item}</Typography>
+                  </IconButton>
                 ))}
               </Box>
             )}
-            {/* <RadioGroup
+            {error ? (
+              <Alert
+                sx={{
+                  fontSize: "16px",
+                  bgcolor: "rgb(247, 230, 230)",
+                  color: "rgb(175, 4, 4)",
+                }}
+                variant="filled"
+                className="animate__animated animate__slideInUp"
+                severity="error"
+              >
+                Please select more choices!!
+              </Alert>
+            ) : (
+              <Button
+                onClick={handleNext}
+                endIcon={<CheckIcon />}
+                variant="contained"
+                sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
+              >
+                Ok
+              </Button>
+            )}
+          </Box>
+        </Box>
+      </Box>
+    </>
+  );
+};
+
+export default AskGoal;
+
+{
+  /* <RadioGroup
               sx={{ py: "20px", ml: "10px" }}
               aria-labelledby="askRole"
               value={formData.role}
@@ -204,20 +301,31 @@ const AskGoal = () => {
                   label={item}
                 />
               ))}
-            </RadioGroup> */}
-            <Button
-              onClick={() => setActiveStep(activeStep + 1)}
-              endIcon={<CheckIcon />}
-              variant="contained"
-              sx={{ color: "#fff", backgroundColor: "#0077ff", mt: "5px" }}
-            >
-              Ok
-            </Button>
-          </Box>
-        </Box>
-      </Box>
-    </>
-  );
-};
+            </RadioGroup> */
+}
 
-export default AskGoal;
+// <FormControlLabel
+//   key={item}
+//   sx={{
+//     border:
+//       formData.role === item
+//         ? "3px solid #f4f4f4"
+//         : "3px solid #a09e9ed2",
+//     mt: "10px",
+//     px: "15px",
+//     py: "5px",
+//     borderRadius: "5px",
+//     transition: "all 200ms",
+//     bgcolor: "#fcfbfb13",
+//     fontSize: "12px",
+//     "&:hover": {
+//       bgcolor: "#edebeb43",
+//     },
+//     "& .PrivateSwitchBase-input": {
+//       display: "none",
+//     },
+//   }}
+//   value={item}
+//   // control={<Radio sx={{display: "none"}} />}
+//   label={item}
+// />

@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 import { rolesList } from "../utils/constants";
@@ -32,12 +32,16 @@ const AskRole = () => {
       }
     }
 
-    if(formData.industry.trim() === '') {
-      setProgress(50)
-    }
-    else {
-      setProgress(75)
-    }
+    useEffect(() => {
+      if(formData.industry.trim() === '') {
+        setProgress(50)
+      }
+      else {
+        setProgress(75)
+      }
+    }, [formData.industry])
+    
+
 
   return (
     <>
@@ -123,6 +127,7 @@ const AskRole = () => {
               value={formData.role}
               onChange={(e) => {
                 setFormData((val) => ({ ...val, role: e.target.value }));
+                setFormData((val) => ({ ...val, goal: [] }));
                 setError(false)
                 setActiveStep(activeStep + 1)
               }}

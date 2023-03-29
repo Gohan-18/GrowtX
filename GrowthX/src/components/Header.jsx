@@ -7,7 +7,12 @@ const Header = () => {
 
   const { setActiveStep, progress, setProgress, formData } = useContext(AppContext);
 
-
+  // if(formData.fName.trim() === '') {
+  //   setProgress(0)
+  // }
+  // else {
+  //   setProgress(25)
+  // }
 
   return (
     <Box sx={{ position: "fixed", top: 0, left: 0, right: 0 }}>

@@ -38,18 +38,22 @@ const AskName = () => {
     // }
   }
 
-  if(formData.fName.trim() === '') {
-    setProgress(0)
-  }
-  else {
-    setProgress(25)
-  }
-
-  // useEffect(() => {
-
-
-  // }, [formData.fName])
+  useEffect(() => {
+    if(formData.fName.trim() === '') {
+      setProgress(0)
+    }
+    else {
+      setProgress(25)
+    }
+  }, [formData.fName])
   
+
+  // if(formData.fName.trim() === '') {
+  //   setProgress(0)
+  // }
+  // else {
+  //   setProgress(25)
+  // }
 
   return (
     <>
