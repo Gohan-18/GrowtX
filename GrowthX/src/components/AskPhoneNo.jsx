@@ -1,21 +1,9 @@
-import {
-  Alert,
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, Button, Typography } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import React, { useContext, useEffect, useState } from "react";
-import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
-// import 'react-phone-number-input/style.css'
-// import PhoneInput from 'react-phone-number-input'
 
 const AskPhoneNo = () => {
   const {
@@ -29,57 +17,45 @@ const AskPhoneNo = () => {
     flags,
   } = useContext(AppContext);
 
-  // const [flag, setFlag] = useState(flags[109]);
-  const [value, setValue] = useState('');
-  // const [isValid, setIsValid] = useState(true);
-  // console.log(isValid)
+  const [value, setValue] = useState("");
+  const [loadingBtn, setLoadingBtn] = useState(false);
+  const [mobileNoLength, setMobileNoLength] = useState("");
 
-  function handleInput() {
-    // if (
-    //   formData.phone === null ||
-    //   formData.phone === undefined ||
-    //   typeof formData.phone === 'string' ||
-    //   formData.phone.trim() === ''
-    // ) {
-    //   setError(true);
-    //   setFormData((val) => ({ ...val, phone: 0 }));
-    // } else {
-    //   // setError(false)
-    //   setActiveStep(activeStep + 1);
-    // }
+  async function sendFormData() {
+    await fetch("https://eo3oi83n1j77wgp.m.pipedream.net", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 
+  async function handleInput() {
     if (
-      formData.phone.trim() === "" 
+      formData.phone.trim() === "" ||
+      formData.phone.length !== mobileNoLength
     ) {
       setError(true);
     } else {
-      console.log("success");
+      // console.log("success");
       setProgress(100);
+      setLoadingBtn(true);
+      await sendFormData();
+      setLoadingBtn(false);
       setActiveStep(activeStep + 1);
     }
   }
 
-  function handleChange(phone) {
-    setError(false); 
-    // setValue(phone)
-    // setFormData((val) => ({ ...val, phone: phone }));
-  }
-
-  function handleFlagChange(e) {
-    console.log(flags.indexOf(e.target.value));
-    setFlag(flags[flags.indexOf(e.target.value)]);
-  }
-
   useEffect(() => {
     if (formData.phone.length) {
-      setError(false); 
+      setError(false);
       setProgress(100);
     } else {
       setProgress(85);
     }
 
     setFormData((val) => ({ ...val, phone: value }));
-
   }, [formData.phone, value]);
 
   return (
@@ -151,109 +127,15 @@ const AskPhoneNo = () => {
             </Typography>
             <Box sx={{ my: "20px", display: "flex", gap: 3 }}>
               <PhoneInput
-              // style={{width: '100%', backgroundColor: 'black'}}
-                // searchStyle={{backgroundColor: 'black'}}
                 placeholder="08123456789"
-                className='phone'
+                className="phone"
                 country={"in"}
                 value={value}
-                onChange={(phone) => setValue(phone)}
-                // isValid={(value, country) => {
-                //   if (value.match(/12345/)) {
-                //     return 'Invalid value: '+value+', '+country.name;
-                //   } else if (value.match(/1234/)) {
-                //     setIsValid(false);
-                //   } else {
-                //     setIsValid(true);
-                //   }
-                // }}
-              />
-              {/* <Select
-                // sx={{mx: '10px'}}
-                // displayEmpty
-                // labelId="countryList"
-                variant="standard"
-                id="countryList"
-                value={flag}
-                // label="Type or select an option"
-                autoWidth
-                //   input={<img
-                //     src={`https://flagcdn.com/28x21/za.png`}
-                //     srcset={`https://flagcdn.com/32x24/za.png 2x,
-                // https://flagcdn.com/48x36/za.png 3x`}
-                //     width="28"
-                //     height="21"
-                //     alt={`item`}
-                //   />}
-                onChange={handleFlagChange}
-              >
-                {flags.map((item) => (
-                  <MenuItem
-                    sx={{
-                      // color: '#f4f4f4',
-                      width: "100%",
-                      border: "3px solid #a09e9ed2",
-                      // border:
-                      //   formData.goal[0] === item || formData.goal[1] === item
-                      //     ? "3px solid #f4f4f4"
-                      //     : "3px solid #a09e9ed2",
-                      my: "5px",
-                      // px: "25px",
-                      // py: "5px",
-                      transition: "all 200ms",
-                      // bgcolor: "#fcfbfb13",
-                      fontSize: "12px",
-                      "&:hover": {
-                        bgcolor: "#fcfbfb13",
-                      },
-                      // "& .PrivateSwitchBase-input": {
-                      //   display: "none",
-                      // },
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "start",
-                      justifyContent: "start",
-                      borderRadius: "5px",
-                    }}
-                    value={item}
-                    key={item}
-                  >
-                    <img
-                      style={{ margin: "5px 10px 5px 10px" }}
-                      src={`https://flagcdn.com/28x21/${item}.png`}
-                      //     srcset={`https://flagcdn.com/32x24/za.png 2x,
-                      // https://flagcdn.com/48x36/za.png 3x`}
-                      width="28"
-                      height="21"
-                      alt={item}
-                    />
-                  </MenuItem>
-                ))}
-              </Select>
-              <TextField
-                type="number"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                variant="standard"
-                placeholder="08123456789"
-                sx={{
-                  // py: "10px",
-                  fontSize: "40px",
-                  "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
-                    fontSize: "25px",
-                    color: "#f4f4f4",
-                    pb: "5px",
-                  },
-                  "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
-                    {
-                      display: "none",
-                    },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                onChange={(phone, country, e) => {
+                  setMobileNoLength(country.format.split(".").length - 1);
+                  setValue(phone);
                 }}
-              /> */}
+              />
             </Box>
 
             {error ? (
@@ -267,16 +149,17 @@ const AskPhoneNo = () => {
                 className="animate__animated animate__slideInUp"
                 severity="error"
               >
-                Please fill this in!!
+                Please input valid phone number!!
               </Alert>
             ) : (
-              <Button
+              <LoadingButton
+                loading={loadingBtn}
                 onClick={handleInput}
                 variant="contained"
                 sx={{ color: "#fff", backgroundColor: "#0077ff" }}
               >
                 Submit
-              </Button>
+              </LoadingButton>
             )}
           </Box>
         </Box>

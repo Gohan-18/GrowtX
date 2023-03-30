@@ -19,7 +19,6 @@ li {
 
 .button:active {
   animation: blink 400ms linear forwards 3;
-  /* animation-iteration-count: 3; */
 }
 
 @keyframes blink {
