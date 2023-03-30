@@ -14,12 +14,16 @@ const AskPhoneNo = () => {
     error,
     setError,
     setProgress,
-    flags,
   } = useContext(AppContext);
 
-  const [value, setValue] = useState("");
+  const PhoneInp = PhoneInput.default ? PhoneInput.default : PhoneInput;
+
+  // console.log(PhoneInp);
+
+  const [value, setValue] = useState("91");
   const [loadingBtn, setLoadingBtn] = useState(false);
-  const [mobileNoLength, setMobileNoLength] = useState("");
+  const [mobileNoLength, setMobileNoLength] = useState(0);
+  // console.log(value);
 
   async function sendFormData() {
     await fetch("https://eo3oi83n1j77wgp.m.pipedream.net", {
@@ -48,7 +52,7 @@ const AskPhoneNo = () => {
   }
 
   useEffect(() => {
-    if (formData.phone.length) {
+    if (formData.phone.length > 0) {
       setError(false);
       setProgress(100);
     } else {
@@ -126,9 +130,8 @@ const AskPhoneNo = () => {
               application.
             </Typography>
             <Box sx={{ my: "20px", display: "flex", gap: 3 }}>
-              <PhoneInput
+              <PhoneInp
                 placeholder="08123456789"
-                className="phone"
                 country={"in"}
                 value={value}
                 onChange={(phone, country, e) => {
@@ -136,6 +139,7 @@ const AskPhoneNo = () => {
                   setValue(phone);
                 }}
               />
+              {/* <Typography>Hello</Typography> */}
             </Box>
 
             {error ? (

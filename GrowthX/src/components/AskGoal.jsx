@@ -30,7 +30,7 @@ const AskGoal = () => {
 
   const newArr = formData.goal;
 
-  console.log(newArr);
+  // console.log(newArr);
 
   useEffect(() => {
     if (formData.goal.length === 0) {
@@ -41,7 +41,7 @@ const AskGoal = () => {
   }, [formData.goal]);
 
   function handleChange(item) {
-    console.log(item);
+    // console.log(item);
     setError(false);
 
     if (newArr[0] === item || newArr[1] === item) {

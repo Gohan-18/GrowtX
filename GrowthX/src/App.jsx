@@ -16,7 +16,7 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
   const [error, setError] = useState(false);
-  const [flags, setFlags] = useState([]);
+  // const [flags, setFlags] = useState([]);
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -27,7 +27,7 @@ function App() {
     phone: "",
   });
 
-  console.log(formData);
+  // console.log(formData);
 
   const route = createBrowserRouter(
     createRoutesFromElements(
@@ -48,8 +48,6 @@ function App() {
         setError,
         progress,
         setProgress,
-        flags,
-        setFlags,
       }}
     >
       <RouterProvider router={route} />

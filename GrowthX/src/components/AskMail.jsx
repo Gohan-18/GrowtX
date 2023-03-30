@@ -4,8 +4,15 @@ import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
 
 const AskMail = () => {
-  const { activeStep, setActiveStep, formData, setFormData, error, setError, setProgress } =
-    useContext(AppContext);
+  const {
+    activeStep,
+    setActiveStep,
+    formData,
+    setFormData,
+    error,
+    setError,
+    setProgress,
+  } = useContext(AppContext);
 
   function handleInput() {
     if (
@@ -22,7 +29,7 @@ const AskMail = () => {
   }
 
   useEffect(() => {
-    if (formData.mail.trim() === '') {
+    if (formData.mail.trim() === "") {
       setProgress(75);
     } else {
       setProgress(85);
@@ -124,7 +131,7 @@ const AskMail = () => {
               sx={{
                 py: "10px",
                 fontSize: "40px",
-                "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
+                "& .MuiInputBase-input ": {
                   fontSize: {
                     xs: "20px",
                     sm: "30px",
