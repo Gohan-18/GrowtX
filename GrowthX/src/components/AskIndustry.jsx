@@ -15,13 +15,26 @@ import { AppContext } from "../App";
 import { industryList } from "../utils/constants";
 
 const AskIndustry = () => {
-  const { activeStep, setActiveStep, formData, setFormData, error, setError, setProgress } =
-    useContext(AppContext);
+  const {
+    activeStep,
+    setActiveStep,
+    formData,
+    setFormData,
+    error,
+    setError,
+    setProgress,
+  } = useContext(AppContext);
 
   function handleChange(e) {
+    setTimeout(() => {
+      // setFormData((val) => ({ ...val, industry: e.target.value }));
+      setError(false);
+      setActiveStep(activeStep + 1);
+    }, 600)
+    // console.log(e)
     setFormData((val) => ({ ...val, industry: e.target.value }));
-    setError(false);
-    setActiveStep(activeStep + 1);
+    // setError(false);
+    // setActiveStep(activeStep + 1);
   }
 
   function handleInput() {
@@ -38,7 +51,6 @@ const AskIndustry = () => {
   // else {
   //   setProgress(75)
   // }
-
 
   return (
     <>
@@ -112,23 +124,43 @@ const AskIndustry = () => {
                 Type or select an option
               </InputLabel>
               <Select
+                variant="standard"
                 labelId="industryList"
                 id="industryList"
                 value={formData.industry}
                 label="Type or select an option"
                 onChange={handleChange}
                 fullWidth
+                // sx={{maxHeight: '200px'}}
               >
                 {industryList.map((item) => (
                   <MenuItem
-                    // defaultValue={formData.fName}
+                  className="button"
+                    sx={{
+                      fontSize: "16px",
+                      width: "100%",
+                      border: "3px solid #a09e9ed2",
+                      mb: "5px",
+                      // px: "25px",
+                      // py: "5px",
+                      transition: "all 200ms",
+                      // bgcolor: "#fcfbfb13",
+                      // fontSize: "12px",
+                      "&:hover": {
+                        bgcolor: "#fcfbfb13",
+                      },
+                      // "& .PrivateSwitchBase-input": {
+                      //   display: "none",
+                      // },
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "start",
+                      justifyContent: "start",
+                      borderRadius: "5px",
+                      // maxHeight: ''
+                    }}
                     value={item}
                     key={item}
-                    sx={{
-                      "& .css-nn5bdz-MuiButtonBase-root-MuiMenuItem-root": {
-                        border: "2px solid #fff",
-                      },
-                    }}
                   >
                     {item}
                   </MenuItem>

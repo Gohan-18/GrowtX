@@ -125,7 +125,10 @@ const AskMail = () => {
                 py: "10px",
                 fontSize: "40px",
                 "& .css-ume8vi-MuiInputBase-input-MuiInput-input ": {
-                  fontSize: "30px",
+                  fontSize: {
+                    xs: "20px",
+                    sm: "30px",
+                  },
                   color: "#f4f4f4",
                   pb: "5px",
                 },

@@ -13,6 +13,30 @@ li {
   border: 2px solid #0366d759
 }
 
+.button {
+  transition: opacity 400ms, background-color 300ms;
+}
+
+.button:active {
+  animation: blink 400ms linear forwards 3;
+  /* animation-iteration-count: 3; */
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  33% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .css-ume8vi-MuiInputBase-input-MuiInput-input {
   color: #000;
   height: 80px

@@ -18,10 +18,17 @@ import { founderGoal, otherGoals } from "../utils/constants";
 // const newArr = [];
 
 const AskGoal = () => {
-  const { activeStep, setActiveStep, formData, setFormData, setProgress, error, setError } =
-    useContext(AppContext);
+  const {
+    activeStep,
+    setActiveStep,
+    formData,
+    setFormData,
+    setProgress,
+    error,
+    setError,
+  } = useContext(AppContext);
 
-    const newArr = formData.goal;
+  const newArr = formData.goal;
 
   console.log(newArr);
 
@@ -35,7 +42,7 @@ const AskGoal = () => {
 
   function handleChange(item) {
     console.log(item);
-    setError(false)
+    setError(false);
 
     if (newArr[0] === item || newArr[1] === item) {
       let index = newArr.indexOf(item);
@@ -57,15 +64,13 @@ const AskGoal = () => {
     }
   }
 
-  function handleNext () {
-    if(formData.goal.length === 2) {
+  function handleNext() {
+    if (formData.goal.length === 2) {
       setActiveStep(activeStep + 1);
-    }
-    else {
-      setError(true)
+    } else {
+      setError(true);
     }
   }
-
 
   return (
     <>
@@ -138,6 +143,7 @@ const AskGoal = () => {
               >
                 {founderGoal.map((item) => (
                   <IconButton
+                    className="button"
                     disableRipple
                     disabled={
                       formData.goal.length === 2
@@ -174,7 +180,17 @@ const AskGoal = () => {
                       borderRadius: "5px",
                     }}
                   >
-                    <Typography>{item}</Typography>
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: "14px",
+                          sm: "20px",
+                        },
+                        textAlign: "start",
+                      }}
+                    >
+                      {item}
+                    </Typography>
                   </IconButton>
                 ))}
               </Box>
@@ -189,6 +205,7 @@ const AskGoal = () => {
               >
                 {otherGoals.map((item) => (
                   <IconButton
+                    className="button"
                     disableRipple
                     disabled={
                       formData.goal.length === 2
@@ -225,7 +242,17 @@ const AskGoal = () => {
                       borderRadius: "5px",
                     }}
                   >
-                    <Typography>{item}</Typography>
+                    <Typography
+                      sx={{
+                        fontSize: {
+                          xs: "14px",
+                          sm: "20px",
+                        },
+                        textAlign: "start",
+                      }}
+                    >
+                      {item}
+                    </Typography>
                   </IconButton>
                 ))}
               </Box>

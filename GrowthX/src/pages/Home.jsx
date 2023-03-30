@@ -40,20 +40,20 @@ function handleScroll() {}
 const Home = () => {
   const { activeStep, setActiveStep, flags, setFlags } = useContext(AppContext);
 
-  async function fetchFlags () {
-    await fetch('https://flagcdn.com/en/codes.json')
-    .then((data) => data.json())
-    .then((result) => {
-      const flagsArray = Object.keys(result);
-      setFlags(flagsArray)
-    })
-  }
+  // async function fetchFlags () {
+  //   await fetch('https://flagcdn.com/en/codes.json')
+  //   .then((data) => data.json())
+  //   .then((result) => {
+  //     const flagsArray = Object.keys(result);
+  //     setFlags(flagsArray)
+  //   })
+  // }
 
-  useEffect(() => {
-    fetchFlags()
-  }, [])
+  // useEffect(() => {
+  //   fetchFlags()
+  // }, [])
 
-  console.log(flags)
+  // console.log(flags)
 
   return (
     <Container maxWidth="md">
@@ -65,7 +65,7 @@ const Home = () => {
           top: "80px",
           right: "20px",
           zIndex: 50,
-          display: activeStep === 0 ? "none" : "flex",
+          display: activeStep === 0 || activeStep === 8 ? "none" : "flex",
         }}
       >
         <ArrowCircleUpIcon />

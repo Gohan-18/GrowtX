@@ -128,13 +128,17 @@ const AskRole = () => {
               onChange={(e) => {
                 setFormData((val) => ({ ...val, role: e.target.value }));
                 setFormData((val) => ({ ...val, goal: [] }));
+                setTimeout(() => {
+                  setActiveStep(activeStep + 1)
+                }, 300)
                 setError(false)
-                setActiveStep(activeStep + 1)
+                // setActiveStep(activeStep + 1)
               }}
               name="askRole"
             >
               {rolesList.map((item) => (
                 <FormControlLabel
+                className="button"
                   key={item}
                   sx={{
                     border:
@@ -145,7 +149,7 @@ const AskRole = () => {
                     px: "15px",
                     py: "5px",
                     borderRadius: "5px",
-                    transition: "all 200ms",
+                    // transition: "all 500ms linear",
                     bgcolor: "#fcfbfb13",
                     fontSize: "12px",
                     "&:hover": {
@@ -154,6 +158,7 @@ const AskRole = () => {
                     "& .PrivateSwitchBase-input": {
                       display: "none",
                     },
+                    // animationIterationCount: 3
                   }}
                   value={item}
                   control={<Radio sx={{ display: "none" }} />}

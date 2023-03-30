@@ -1,7 +1,26 @@
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { AppContext } from '../App';
 
 const Confirmation = () => {
+
+    const {formData, setFormData, setProgress} =
+    useContext(AppContext);
+
+    useEffect(() => {
+        setFormData({
+            fName: "",
+            lName: "",
+            industry: "",
+            role: "",
+            goal: [],
+            mail: "",
+            phone: "",
+          });
+        setProgress(0)
+    }, [])
+    
+
   return (
     <>
       <Box

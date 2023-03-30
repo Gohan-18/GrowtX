@@ -12,6 +12,10 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { AppContext } from "../App";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";
+// import 'react-phone-number-input/style.css'
+// import PhoneInput from 'react-phone-number-input'
 
 const AskPhoneNo = () => {
   const {
@@ -25,7 +29,10 @@ const AskPhoneNo = () => {
     flags,
   } = useContext(AppContext);
 
-  const [flag, setFlag] = useState(flags[109])
+  // const [flag, setFlag] = useState(flags[109]);
+  const [value, setValue] = useState('');
+  // const [isValid, setIsValid] = useState(true);
+  // console.log(isValid)
 
   function handleInput() {
     // if (
@@ -41,7 +48,9 @@ const AskPhoneNo = () => {
     //   setActiveStep(activeStep + 1);
     // }
 
-    if (formData.phone.trim() === "" || formData.phone.length < 10 || formData.phone.length > 10) {
+    if (
+      formData.phone.trim() === "" 
+    ) {
       setError(true);
     } else {
       console.log("success");
@@ -50,25 +59,28 @@ const AskPhoneNo = () => {
     }
   }
 
-  function handleChange(e) {
-    setError(false);
-    setFormData((val) => ({ ...val, phone: e.target.value }));
+  function handleChange(phone) {
+    setError(false); 
+    // setValue(phone)
+    // setFormData((val) => ({ ...val, phone: phone }));
   }
 
   function handleFlagChange(e) {
-    console.log(flags.indexOf(e.target.value))
-    setFlag(flags[flags.indexOf(e.target.value)])
+    console.log(flags.indexOf(e.target.value));
+    setFlag(flags[flags.indexOf(e.target.value)]);
   }
 
   useEffect(() => {
     if (formData.phone.length) {
+      setError(false); 
       setProgress(100);
-    }
-    else {
+    } else {
       setProgress(85);
     }
-  }, [formData.phone])
-  
+
+    setFormData((val) => ({ ...val, phone: value }));
+
+  }, [formData.phone, value]);
 
   return (
     <>
@@ -137,9 +149,27 @@ const AskPhoneNo = () => {
               We won't call you unless it is absolutely required to process your
               application.
             </Typography>
-            <Box sx={{ my: "20px", display: 'flex', gap: 3, }}>
-              <Select
-              // sx={{mx: '10px'}}
+            <Box sx={{ my: "20px", display: "flex", gap: 3 }}>
+              <PhoneInput
+              // style={{width: '100%', backgroundColor: 'black'}}
+                // searchStyle={{backgroundColor: 'black'}}
+                placeholder="08123456789"
+                className='phone'
+                country={"in"}
+                value={value}
+                onChange={(phone) => setValue(phone)}
+                // isValid={(value, country) => {
+                //   if (value.match(/12345/)) {
+                //     return 'Invalid value: '+value+', '+country.name;
+                //   } else if (value.match(/1234/)) {
+                //     setIsValid(false);
+                //   } else {
+                //     setIsValid(true);
+                //   }
+                // }}
+              />
+              {/* <Select
+                // sx={{mx: '10px'}}
                 // displayEmpty
                 // labelId="countryList"
                 variant="standard"
@@ -147,48 +177,52 @@ const AskPhoneNo = () => {
                 value={flag}
                 // label="Type or select an option"
                 autoWidth
-              //   input={<img
-              //     src={`https://flagcdn.com/28x21/za.png`}
-              //     srcset={`https://flagcdn.com/32x24/za.png 2x,
-              // https://flagcdn.com/48x36/za.png 3x`}
-              //     width="28"
-              //     height="21"
-              //     alt={`item`}
-              //   />}
+                //   input={<img
+                //     src={`https://flagcdn.com/28x21/za.png`}
+                //     srcset={`https://flagcdn.com/32x24/za.png 2x,
+                // https://flagcdn.com/48x36/za.png 3x`}
+                //     width="28"
+                //     height="21"
+                //     alt={`item`}
+                //   />}
                 onChange={handleFlagChange}
               >
                 {flags.map((item) => (
-                  <MenuItem                     sx={{
-                    // color: '#f4f4f4',
-                    width: "100%",
-                    border :'3px solid #a09e9ed2',
-                    // border:
-                    //   formData.goal[0] === item || formData.goal[1] === item
-                    //     ? "3px solid #f4f4f4"
-                    //     : "3px solid #a09e9ed2",
-                    my: "5px",
-                    // px: "25px",
-                    // py: "5px",
-                    transition: "all 200ms",
-                    // bgcolor: "#fcfbfb13",
-                    fontSize: "12px",
-                    "&:hover": {
-                      bgcolor: "#fcfbfb13",
-                    },
-                    // "& .PrivateSwitchBase-input": {
-                    //   display: "none",
-                    // },
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "start",
-                    justifyContent: "start",
-                    borderRadius: "5px",
-                  }} value={item} key={item}>
+                  <MenuItem
+                    sx={{
+                      // color: '#f4f4f4',
+                      width: "100%",
+                      border: "3px solid #a09e9ed2",
+                      // border:
+                      //   formData.goal[0] === item || formData.goal[1] === item
+                      //     ? "3px solid #f4f4f4"
+                      //     : "3px solid #a09e9ed2",
+                      my: "5px",
+                      // px: "25px",
+                      // py: "5px",
+                      transition: "all 200ms",
+                      // bgcolor: "#fcfbfb13",
+                      fontSize: "12px",
+                      "&:hover": {
+                        bgcolor: "#fcfbfb13",
+                      },
+                      // "& .PrivateSwitchBase-input": {
+                      //   display: "none",
+                      // },
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "start",
+                      justifyContent: "start",
+                      borderRadius: "5px",
+                    }}
+                    value={item}
+                    key={item}
+                  >
                     <img
-                    style={{margin: '5px 10px 5px 10px'}}
+                      style={{ margin: "5px 10px 5px 10px" }}
                       src={`https://flagcdn.com/28x21/${item}.png`}
-                  //     srcset={`https://flagcdn.com/32x24/za.png 2x,
-                  // https://flagcdn.com/48x36/za.png 3x`}
+                      //     srcset={`https://flagcdn.com/32x24/za.png 2x,
+                      // https://flagcdn.com/48x36/za.png 3x`}
                       width="28"
                       height="21"
                       alt={item}
@@ -219,7 +253,7 @@ const AskPhoneNo = () => {
                     MozAppearance: "textfield",
                   },
                 }}
-              />
+              /> */}
             </Box>
 
             {error ? (
